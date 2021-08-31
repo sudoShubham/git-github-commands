@@ -326,4 +326,41 @@ press esc to exit insert mode,
 then type :x! (now the cursor is at the bottom) and hit enter to save and exit.
 
 If typing :q! instead, will exit the editor without saving (and commit will be aborted)
+-------------------------------------------------------------------------------------------------------------------------------------------------
 
+cmd: git push-u origin <branchName>
+o/p: pushes newly created local branch to remote repository.
+
+#GITHUB TOKEN: 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
+
+cmd: git remote update origin --prune
+o/p: reflect remotely deleted branches in our local repository.
+
+cmd: git branch -D <branchName>
+o/p: delete unmerged branches.
+
+cmd: git push origin -d <branchName>
+o/p: Delete remote branch from local terminal
+
+cmd: git show-ref
+o/p: shows all remote + local references(branches)
+
+cmd: ls .git/refs/heads
+o/p: shows all local branches
+
+cmd: ls .git/refs/remotes/origin
+o/p: shows all remote branches
+
+cmd: git show-ref <branchName>
+o/p: shows references to specified branchName.(both should be same if they are consistent)
+
+#################################################################################################################################################
+###################################################################*PULL REQUEST*################################################################
+
+pull requst != git pull
+-----------------------------------------------------------------------------------------------------------------------------------------------
+cmd: git commit --amend --author = "newAuthorName <authorNewEmail>"
+o/p: update last commit author information.
+
+cmd: git remote add <newRemoteServerName> <parentRepositoryLink>
+o/p: add parent origin(we can only pull and fetch allowed)
