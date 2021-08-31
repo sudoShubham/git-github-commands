@@ -319,6 +319,7 @@ o/p: shows inside process of pull.
 .git/FETCH_HEAD contains the hash of last commit at remote branch and is used to check is locally fetched repository is upto date or not.
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------
+To close bash editor:
 On Windows GIT Bash Ctrl+X would do nothing and found out it works quite like vi/vim. 
 Press i to enter inline insert mode. Type the description at the very top, 
 press esc to exit insert mode, 
