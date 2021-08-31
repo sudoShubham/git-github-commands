@@ -1,0 +1,327 @@
+
+git:Distributed version control system(Git can track any files in any folder i.e, it stores all history of changes that user do to the file)
+    git doeesn't depends on internet connection.
+
+github:repository hosting service
+
+
+git init                            :create new empty git repository
+mkdir                               :make directory
+pwd                                 :shows current directory
+clear                               :clear terminal
+ls                                  :list files
+ls-l                                :shows files in table format 
+ls-la                               :shows hidden files too
+cd directoryName                    :Change directory
+mkdir folderName                    :make  new directory
+cd ..                               :Go to back directory
+cd                                  :Go to parent/root directory
+.                                   :shows current directory
+cd .                                :Stays in same directory
+start . (or) explorer .             :Opens file explorer in current directory
+cd Desktop/my-project               :Go to nested directory
+cat filename.txt                    :Reads content of the file.
+nano                                :Text editor
+Tab key                             :auto-complete
+#####################################################################################################################
+commandName --help					:to get information about any git command(Windows)
+man commandName						:to get information about any git command(mac)
+echo								:Outputs the all text after the command
+echo -n                             :Output without ending on new line.
+echo "Hello shubham" > file.txt		:rewrite the text in file.txt
+echo "Welcome" >> file.txt			:Appends text to new line in file.txt
+rm filename.txt                     :Removes file 
+rm -rf folderName                   :Removes folder
+
+######################################################################################################################
+
+Git object types:
+    1.Blob: stores Single file of any extension              cmd to create new object: git hash-object
+    2.Tree: information about Folder/directory
+    3.Commit: use to store different versios of project
+    4.Annoted tag
+----------------------------------------------------------------------------------------------------------------------
+#######################################################################################################################################
+#####################################################BLOB OBJECT#######################################################################
+
+echo "Hello, Git" | git hash-object --stdin 
+=> text before the '|' is input to the next command after '|' and only displays hash, not write to repository.
+-----------------------------------------------------------------------------------------------------------------------
+echo "Hello, Git" | git hash-object --stdin -w
+=> Result(Hash i.e object of a text input) gets write to the .git/objects repository
+-----------------------------------------------------------------------------------------------------------------------
+Eg:
+cmd:     echo "Hello, Git" | git hash-object --stdin
+o/p:     b7aec520dec0a7516c18eb4c68b64ae1eb9b5a5e
+        key|value                                                    key(folder name) + value(folder content file name) = Hash
+        b7 |aec520dec0a7516c18eb4c68b64ae1eb9b5a5e
+Note: whatever the size of input,the lenght of the hash will always be same,input may be any type of file extension.(in eg,the i/p is text "Hello, Git")
+
+-----------------------------------------------------------------------------------------------------------------------
+cmd:  echo "Hello, Git" | shasum
+o/p:  Generated SHA1 hash for given input 
+
+git can store 2^160 files in same repository, 160 is the lenght of SHA1 hash
+#######################################################################################################################################
+git cat-file <type> <hash>
+
+1.cmd: git cat-file -p hash
+o/p: content of the object
+
+eg: 
+$ git cat-file -p b7aec520dec0a7516c18eb4c68b64ae1eb9b5a5e
+Hello, Git
+...........................................................................................................................
+2.cmd: git cat-file -t hash
+o/p: type of the object
+
+eg: 
+$ git cat-file -t b7aec520dec0a7516c18eb4c68b64ae1eb9b5a5e
+blob
+...........................................................................................................................
+3.cmd: git cat-file -s hash
+o/p: size of the object in bytes
+
+eg: 
+$ git cat-file -s b7aec520dec0a7516c18eb4c68b64ae1eb9b5a5e
+11
+#######################################################################################################################################
+cmd: echo "This is new file." > new-file.txt
+o/p: create new file with given text and given name(alternative:nano,touch)
+
+cmd: git hash-object ../new-file.txt -w
+o/p: creates object of new-file.txt and stores it
+---------------------------------------------------------------------------------------------------------------------------
+git object(Hash) = object type + content + object lenght + delimiter
+
+-e to interprete escape character \0 by compiler
+#######################################################################################################################################
+#####################################################TREE OBJECT#######################################################################
+git mktree
+eg.
+cmd: cat ../temp-tree.txt | git mktree
+o/p: 7f39938dc2397afbb8a6052c9131c85fbe057a9e    (TREE OBJECT)
+
+..........................................................................................................................
+        content of temp-tree.txt file: 
+        permissionCode objectType   hashOfObject                                 fileName
+        100644          blob        b7aec520dec0a7516c18eb4c68b64ae1eb9b5a5e    file1.txt
+        100644          blob        0cb9c72b1c8ebaaddfc74e795494e2d0f19f6a92    file2.txt
+..........................................................................................................................
+
+                                                        TREE
+                                                 (Root Directory)  
+                                    (7f39938dc2397afbb8a6052c9131c85fbe057a9e)
+                                                         |
+                                                         |
+                                |-------------------------------------------------|
+                                |                                                 |  
+                                |                                                 |             
+                                blob                                            blob   
+                (b7aec520dec0a7516c18eb4c68b64ae1eb9b5a5e)         (0cb9c72b1c8ebaaddfc74e795494e2d0f19f6a92)            
+
+---------------------------------------------------------------------------------------------------------------------------------
+cmd to find all objects in a directory : find .git/objects -type f             (f stands for file type)
+#########################################################################################################################################
+#############################################################*FILE DISTRIBUTION*#########################################################
+Working directory           Staging area(index)            Git repository
+
+cmd: git ls-files -s 
+o/p: List filesin the Staging area 
+
+cmd: git read-tree <hash of tree object>
+o/p: create files contained in a tree to Staging area.
+
+cmd: git checkout-index -a
+o/p: create files in the working directory (copy files from Staging area to working directory)
+
+#########################################################*GIT SETUP*################################################################################
+cmd: git config --global user.name "sudoShubham"                            |
+o/p: setup git user name                                                    |   |
+                                                                            |       |  This info is used when you commit changes
+cmd: git config --global user.email shubhamp2017@gmail.com                  |   |
+o/p: setup git email                                                        |
+
+cmd: git config --list
+o/p: shows all configuration options
+
+#########################################################*GIT COMMIT*################################################################################
+cmd: git status
+o/p: shows status of directory
+
+cmd: git commit -m "msg regarding commit"
+o/p: commits the changes
+
+
+..........................................................................................................................
+                                                        
+                                                       Commit 
+                                    (Stores pointer to tree and commit information)
+                                        (3597ad613cb8d22cbe62729f029ffb3123ea5e43)
+                                                         |
+                                                         |
+                                                        TREE
+                                                 (Root Directory)  
+                                    (7f39938dc2397afbb8a6052c9131c85fbe057a9e)
+                                                         |
+                                                         |
+                                |-------------------------------------------------|
+                                |                                                 |  
+                                |                                                 |             
+                                blob                                            blob   
+                (b7aec520dec0a7516c18eb4c68b64ae1eb9b5a5e)         (0cb9c72b1c8ebaaddfc74e795494e2d0f19f6a92)            
+
+---------------------------------------------------------------------------------------------------------------------------------
+cmd: git ls-files -s
+o/p: shows files from staging area
+
+#########################################################*BASIC GIT COMMANDS*#######################################################################
+cmd: git status
+o/p: current state of git repository
+
+cmd: git add
+o/p: add files to staging area
+
+cmd: git commit
+o/p: write changes to git repository
+
+cmd: git log 
+o/p: history of changes(commits)
+
+cmd: git checkout <branchName>  (or) git checkout <Commit SHA1> 
+o/p: checkout commit or branch or to jump on any specific version
+
+----------------------------------------------------GIT FILE LIFECYCLES--------------------------------------------------------------------------
+
+untracked       modified        staged      unmodified
+
+---------------------------------->|
+git add         
+
+                                   |-------------->| 
+                                   git commit       
+
+                   |<-------------------------------                                 
+                   Change file in working directory
+
+                   |---------------->|
+                   git add                  
+
+-------------------------------------------------------------------------------------------------------------------------------------------------
+cmd: git add .
+o/p: add all modified/new files to stage state.
+
+cmd: git add <file name>
+o/p: add specified file to stage state.
+
+cmd: git restore --staged <file name>  (or) git rm --cached <file name>
+o/p: to unstage from staged state
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+cmd: cat .git/HEAD
+o/p: shows where HEAD is pointing now.
+
+###############################################################################################################################################
+############################################################*BRANCH*###########################################################################
+cmd: git branch
+o/p: list all local branches
+
+cmd: git branch <name>
+o/p: create new branch
+
+cmd: git checkout <branchName>
+o/p: checkout specific branch
+
+cmd: git branch -d <branchName>
+o/p: delete specific branch
+
+cmd: git branch -m <oldName> <newName>
+o/p: rename specific branch
+
+cmd: git checkout -b <branchName>
+o/p: creating a branch with checkout
+
+cmd: ls .git/refs/heads
+o/p: shows total branches(heads)
+
+cmd: cat .git/HEAD
+o/p: shows current head 
+
+cmd: git diff 
+o/p: shows difference in old and modified file.
+
+cmd: git unpack-objects < SAMPLE.pack>
+o/p: Git will generate all objects inside .git/objects directory of your repository.
+NOTE: Move .pack file to .git folder before executing the cmd.
+
+cmd: git commit -m "message" -a
+o/p: files will  
+
+##############################################################################################################################################
+############################################################*MERGE*###########################################################################
+types
+|_____________fast-forward merge
+|
+|_____________3-way merge
+
+fast-forward merge is possible only when there are no further commits in the recieving branch after the commit where feature-branch was created.
+after merging feature-branch with master branch, we can delete the feature branch.
+
+cmd: git merge <branch name>
+o/p: merge <branch name> with current head (or) master //before merging we need to checkout recieving branch(main branch)
+
+3 way commit has 2 parents
+
+during 3 ways merging, MERGE_HEAD points to feature branch head which is going to merge with master. 
+
+############################################################################################################################################
+######################################################*GITHUB*##############################################################################
+cmd: git push
+o/p: push to remote
+
+cmd: git pull
+o/p: merge changesm from remote repository
+
+cmd: git fetch
+o/p: fetch updates
+
+cmd: git remote
+o/p: lists all remote repositories for your local repository.
+
+cmd: git remote -v
+o/p: origin  https://github.com/sudoShubham/first-git-repo.git (fetch)
+     origin  https://github.com/sudoShubham/first-git-repo.git (push)
+
+cmd: git branch -a
+o/p: shows all local + remote branches
+
+cmd: git branch -r
+o/p: shows all remote branches
+
+cmd: git branch -l
+o/p: shows all local branches
+
+cmd: git branch -vv
+o/p: shows tracking branches
+
+cmd: git checkout <remoteBranchName>
+o/p: add local tracking branch to remote <remoteBranchName>.
+
+cmd: git remote show origin
+o/p: shows information about tracking branches and push pull information.
+
+cmd: git remote prune origin
+o/p: removes remotely deleted branch from local repository.
+
+cmd: git pull -v
+o/p: shows inside process of pull.
+
+.git/FETCH_HEAD contains the hash of last commit at remote branch and is used to check is locally fetched repository is upto date or not.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+On Windows GIT Bash Ctrl+X would do nothing and found out it works quite like vi/vim. 
+Press i to enter inline insert mode. Type the description at the very top, 
+press esc to exit insert mode, 
+then type :x! (now the cursor is at the bottom) and hit enter to save and exit.
+
+If typing :q! instead, will exit the editor without saving (and commit will be aborted)
