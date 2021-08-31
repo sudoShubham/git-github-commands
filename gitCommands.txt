@@ -326,3 +326,4 @@ press esc to exit insert mode,
 then type :x! (now the cursor is at the bottom) and hit enter to save and exit.
 
 If typing :q! instead, will exit the editor without saving (and commit will be aborted)
+
