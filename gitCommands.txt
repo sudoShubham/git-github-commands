@@ -437,3 +437,66 @@ o/p: show log in collapse view
 
 cmd: git log --stat
 o/p: more detailed information.
+
+cmd: git log -4
+o/p: shows last 4 commits
+
+cmd: git shortlog
+o/p: shows short log
+
+cmd: git shortlog -n
+o/p: shows shor log with most active user at the top.
+
+cmd: git shortlog -n -s
+o/p: shows all authors with number of commits that they have made. 
+
+cmd: git shortlog -n -s -e
+p/p: shows emails of all authors
+
+cmd: git log --authors = "<authorName>"
+o/p: shows all commits done by specified author.
+
+cmd: git log --authors = "<authorName>" --oneline
+o/p: shows all commits done by specified author in one line.
+
+cmd: git log --grep = <"specificKeyword">
+o/p: shows all commits containing specificKeyword.
+
+PRETTY FORMATTER: https://devhints.io/git-log-format
+
+cmd: git log --merges
+o/p: show all merges
+
+cmd: git log --no-merges
+o/p: shows commits without merges.
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*DISTRUCTIVE COMMANDS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+cmd: git reset <comitName/hash>
+o/p: unstage changes.
+
+cmd: git reset HEAD ~ 5
+o/p: unstage latest 5 changes.
+_________________________________________________________________________________________________________________________________________________
+
+cmd: git revert HEAD
+o/p: it revert all changes of last commit and create new commit without that changes.
+
+cmd: git revert <SHA1>
+o/p: it revert all changes of <SHA1> commit and create new commit without that changes.
+
+cmd: git commit --amend -m "<newMessage>"
+o/p: updates last commit message.
+
+cmd: git commit --amend --author = "newAuthorName <authorNewEmail>"
+o/p: update last commit author information.
+
+cmd: git cherry-pick <SHA1>
+o/p: add <SHA1> commit to current branch commit.
+
+cmd: git stash
+o/p: saves data of staged area before changing the branch so that after coming from some other branch we can still have those unstage area data.
+
+cmd: git stash pop
+o/p: takes staged data out which we have stored before going to another branch.
