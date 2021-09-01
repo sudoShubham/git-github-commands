@@ -431,3 +431,9 @@ o/p: shows log with tracking lines
 
 git lg not working:
 sol^n: git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%C(bold blue)<%an>%Creset' --abbrev-commit"
+
+cmd: git log --oneline
+o/p: show log in collapse view 
+
+cmd: git log --stat
+o/p: more detailed information.
