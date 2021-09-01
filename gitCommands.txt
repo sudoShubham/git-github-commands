@@ -500,3 +500,9 @@ o/p: saves data of staged area before changing the branch so that after coming f
 
 cmd: git stash pop
 o/p: takes staged data out which we have stored before going to another branch.
+
+cmd: git gc
+o/p: does garbage collection, removes detached head commit.Removed objects gets packed in .git/objects/pack folder.
+
+cmd: git config credential.helper ""
+o/p: reset credentials.
