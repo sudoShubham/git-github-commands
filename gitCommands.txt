@@ -379,13 +379,53 @@ o/p: pull from parent of forked branch.
                                                  |          |            |
                                                MAJOR      MINOR        PATCH
                                                         
-                                                                
+
+TAGS-------|-----------lightweight tag
+           | 
+           |-----------Annoted tag
+
+
+
+
 cmd: git tag
 o/p: shows all tags
 
 cmd: git tag <version>
-o/p: set lightweight tag.
+o/p: create lightweight tag.
 e.g: git tag v1.0.0
 
 cmd: git show <version>
 o/p: shows commit where tag has been set and other information.
+
+cmd: ls .git/refs/tags
+o/p: show all tags
+
+NOTE: lightweight tags are not get pushed to remote using git push cmd.
+
+cmd: git tag -a <version> -m <message>
+o/p: create Annoted tag
+
+cmd: git push --tags
+o/p: push tags to remote(Annoted tags)
+
+cmd: git push -v origin <version>
+o/p: push specific version to remote.
+
+######################################################################################################################
+############################################################*REBASING*################################################
+
+git checkout <featureBranch>
+git rebase master
+git checkout master
+git merge <featureBranch>
+
+cmd: git log --graph
+o/p: shows log with tracking lines
+
+-----------------------------------------------------------------------------------------------------------------------------
+.gitignore file
+    new-file.txt //ignore new-file.txt
+    bin/         //ignore bin folder
+    *.tmt        //ignore all files with .tmt extension
+
+
