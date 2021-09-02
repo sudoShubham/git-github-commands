@@ -506,3 +506,10 @@ o/p: does garbage collection, removes detached head commit.Removed objects gets 
 
 cmd: git config credential.helper ""
 o/p: reset credentials.
+
+cmd: chmod +x <fileName>
+o/p: makes file executable.
+
+NOTE: hooks are local,they are not pushed to remote repository.
+
+HOOKS REFFERENCE: https://github.com/sudoShubham/git-hooks-nodejs
