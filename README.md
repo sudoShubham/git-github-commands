@@ -1,7 +1,7 @@
 
 # Git:
 ## Distributed version control system(Git can track any files in any folder i.e, it stores all history of changes that user do to the file)
-#####  **Git doeesn't depends on internet connection.**
+#####  **Git doesn't depends on internet connection.**
 ---
 # Github:
 ## Repository hosting service for Git.
